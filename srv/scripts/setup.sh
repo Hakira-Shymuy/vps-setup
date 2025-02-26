@@ -3,22 +3,25 @@ set -e  # Exit on errors
 
 echo "Starting server setup..."
 
-# Run Docker installation script
-if [ -f "/srv/scripts/docker.sh" ]; then
-    echo "Running Docker setup..."
-    sudo bash /srv/scripts/docker.sh
-else
-    echo "Error: docker.sh not found!"
-    exit 1
+# Ensure git is installed
+if ! command -v git &> /dev/null; then
+    echo "Installing Git..."
+    sudo apt update -y && sudo apt install -y git
 fi
 
-# Run Vim installation script
-if [ -f "/srv/scripts/vim.sh" ]; then
-    echo "Running Vim setup..."
-    sudo bash /srv/scripts/vim.sh
+# Clone the repo if not already present
+if [ ! -d "/srv/.git" ]; then
+    echo "Cloning the vps-setup repository..."
+    sudo git clone https://github.com/Hakira-Shymuy/vps-setup.git /srv/
 else
-    echo "Error: vim.sh not found!"
-    exit 1
+    echo "Repository already exists. Pulling latest changes..."
+    cd /srv/
+    sudo git pull origin main
 fi
+
+echo "Running server setup..."
+# sudo bash /srv/scripts/setup-server.sh
+
+echo "VPS Setup Complete!"
 
 echo "Server setup complete!"
