@@ -9,15 +9,24 @@ if ! command -v git &> /dev/null; then
     sudo apt update -y && sudo apt install -y git
 fi
 
-# Clone the repo if not already present
-if [ ! -d "/srv/.git" ]; then
-    echo "Cloning the vps-setup repository..."
-    sudo git clone https://github.com/Hakira-Shymuy/vps-setup.git /srv/
-else
-    echo "Repository already exists. Pulling latest changes..."
-    cd /srv/
-    sudo git pull origin main
+TEMP_DIR="/tmp/vps-setup"
+
+if [ -d "$TEMP_DIR" ]; then
+    echo "Directory $TEMP_DIR already exists. Removing it."
+    sudo rm -rf "$TEMP_DIR"
 fi
+
+# Clone the repo if not already present
+echo "Cloning the vps-setup repository..."
+sudo git clone https://github.com/Hakira-Shymuy/vps-setup.git "$TEMP_DIR"
+
+# Change to the srv directory
+echo "Changing directory to /srv..."
+sudo mv "$TEMP_DIR/srv" /srv/
+
+# Clean up
+echo "Cleaning up..."
+sudo rm -rf "$TEMP_DIR"
 
 echo "Running server setup..."
 # sudo bash /srv/scripts/setup-server.sh
