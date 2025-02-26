@@ -5,6 +5,9 @@ set -e  # Exit on errors
 echo "Updating System ..."
 sudo apt update -y && sudo apt upgrade -y
 
+echo "Running auto remove"
+sudo apt autoremove
+
 echo "Installing Docker & Docker Compose ..."
 
 echo "Adding Docker's official GPG key"
