@@ -10,6 +10,7 @@ if ! command -v git &> /dev/null; then
 fi
 
 TEMP_DIR="/tmp/vps-setup"
+TARGET_DIR="/srv"
 
 if [ -d "$TEMP_DIR" ]; then
     echo "Directory $TEMP_DIR already exists. Removing it."
@@ -20,12 +21,18 @@ fi
 echo "Cloning the vps-setup repository..."
 sudo git clone https://github.com/Hakira-Shymuy/vps-setup.git "$TEMP_DIR"
 
-# Move only the CONTENTS of the "srv" folder into /srv/
-echo "Changing directory files to /srv/..."
-if [ ! -d "/srv/" ]; then
+if [ ! -d "$TARGET_DIR" ]; then
     echo "Creating /srv/ directory..."
-    sudo mkdir /srv/
+    sudo mkdir -p "$TARGET_DIR"
 fi
+
+# Move only the CONTENTS of the "srv" folder into /srv/
+sudo rsync -av "$TEMP_DIR/srv/" "$TARGET_DIR/"
+# echo "Changing directory files to /srv/..."
+# if [ ! -d "/srv/" ]; then
+#     echo "Creating /srv/ directory..."
+#     sudo mkdir /srv/
+# fi
 
 sudo mv -T "$TEMP_DIR/srv/" /srv
 
