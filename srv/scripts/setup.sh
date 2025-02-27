@@ -29,6 +29,6 @@ echo "Cleaning up..."
 sudo rm -rf "$TEMP_DIR"
 
 echo "Running server setup..."
-# sudo bash /srv/scripts/setup-server.sh
+sudo bash /srv/scripts/setup-server.sh
 
 echo "Server Setup Complete!"
