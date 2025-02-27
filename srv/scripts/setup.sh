@@ -34,7 +34,7 @@ sudo rsync -av "$TEMP_DIR/srv/" "$TARGET_DIR/"
 #     sudo mkdir /srv/
 # fi
 
-sudo mv -T "$TEMP_DIR/srv/" /srv
+# sudo mv -T "$TEMP_DIR/srv/" /srv
 
 # Clean up
 echo "Cleaning up..."
