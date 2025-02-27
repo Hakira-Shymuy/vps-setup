@@ -22,7 +22,12 @@ sudo git clone https://github.com/Hakira-Shymuy/vps-setup.git "$TEMP_DIR"
 
 # Move only the CONTENTS of the "srv" folder into /srv/
 echo "Changing directory files to /srv/..."
-sudo mv "$TEMP_DIR/srv/"* /srv/
+if [ ! -d "/srv/" ]; then
+    echo "Creating /srv/ directory..."
+    sudo mkdir /srv/
+fi
+
+sudo mv "$TEMP_DIR/srv/" /srv/
 
 # Clean up
 echo "Cleaning up..."
