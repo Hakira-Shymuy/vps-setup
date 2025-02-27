@@ -27,7 +27,7 @@ if [ ! -d "/srv/" ]; then
     sudo mkdir /srv/
 fi
 
-sudo mv -T "$TEMP_DIR/srv" /srv
+sudo mv -T "$TEMP_DIR/srv/" /srv
 
 # Clean up
 echo "Cleaning up..."
