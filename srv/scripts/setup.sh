@@ -3,7 +3,6 @@ set -e  # Exit on errors
 
 echo "Starting server setup..."
 
-# Ensure git is installed
 if ! command -v git &> /dev/null; then
     echo "Installing Git..."
     sudo apt update -y && sudo apt install -y git
@@ -17,7 +16,6 @@ if [ -d "$TEMP_DIR" ]; then
     sudo rm -rf "$TEMP_DIR"
 fi
 
-# Clone the repo if not already present
 echo "Cloning the vps-setup repository..."
 sudo git clone https://github.com/Hakira-Shymuy/vps-setup.git "$TEMP_DIR"
 
@@ -26,15 +24,8 @@ if [ ! -d "$TARGET_DIR" ]; then
     sudo mkdir -p "$TARGET_DIR"
 fi
 
-# Move only the CONTENTS of the "srv" folder into /srv/
-sudo rsync -av "$TEMP_DIR/srv/" "$TARGET_DIR/"
-# echo "Changing directory files to /srv/..."
-# if [ ! -d "/srv/" ]; then
-#     echo "Creating /srv/ directory..."
-#     sudo mkdir /srv/
-# fi
 
-# sudo mv -T "$TEMP_DIR/srv/" /srv
+sudo rsync -av "$TEMP_DIR/srv/" "$TARGET_DIR/"
 
 # Clean up
 echo "Cleaning up..."
