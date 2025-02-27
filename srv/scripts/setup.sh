@@ -40,7 +40,10 @@ sudo mv -T "$TEMP_DIR/srv/" /srv
 echo "Cleaning up..."
 sudo rm -rf "$TEMP_DIR"
 
-echo "Running server setup..."
-sudo bash /srv/scripts/setup.sh
+echo "Running docker script..."
+sudo bash /srv/scripts/docker.sh
+
+echo "Running vim script..."
+sudo bash /srv/scripts/vim.sh
 
 echo "Server Setup Complete!"
